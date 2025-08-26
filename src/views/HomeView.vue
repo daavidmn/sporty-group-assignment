@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import BasicFetcher from '@/components/BasicFetcher.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <BasicFetcher />
   </main>
 </template>
