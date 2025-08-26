@@ -37,3 +37,8 @@ yarn build
 ```sh
 yarn lint
 ```
+
+### Production version
+
+The production version is auto-deployed via Vercel and can be accessed via url below:
+- https://sporty-group-assignment.vercel.app/
