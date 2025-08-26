@@ -13,6 +13,7 @@ export default defineConfigWithVueTs(
     files: ['**/*.{ts,mts,tsx,vue}'],
     languageOptions: {
       parserOptions: {
+        project: ['./tsconfig.eslint.json'],
         projectService: true,
         tsconfigRootDir: __dirname,
       },
