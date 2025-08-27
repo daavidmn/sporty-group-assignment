@@ -1,29 +1,39 @@
 // src/stores/leagueStore.ts
 import { defineStore } from 'pinia'
-import type { SportDTO as Sport } from '@/api/thesportsdb/types/sports.api'
-import type { LeagueDTO as Leagues } from '@/api/thesportsdb/types/leagues.api'
-import { listAllLeagues, listAllSports } from '@/api/thesportsdb/endpoints/sportsService'
+import type { SportDTO } from '@/api/thesportsdb/types/sports.api'
+import type { AllLeaguesDTO } from '@/api/thesportsdb/types/leagues.api'
+import {
+  getAllLeagues,
+  getAllSeasonsByLeagueId,
+  getLeagueById,
+  listAllSports,
+} from '@/api/thesportsdb/endpoints/sportsService'
+import type { SeasonDTO } from '@/api/thesportsdb/types/seasons.api'
 
 export interface LeagueState {
-  sports: Sport[]
-  leagues: Leagues[]
+  allSports: SportDTO[]
+  allLeagues: AllLeaguesDTO[]
   loading: boolean
   error: string | null
 }
 
 export const useLeagueStore = defineStore('league', {
   state: (): LeagueState => ({
-    sports: [],
-    leagues: [],
+    allSports: [],
+    allLeagues: [],
     loading: false,
     error: null,
   }),
 
   getters: {
-    totalSports: (state) => state.sports.length,
+    totalSports: (state) => state.allSports.length,
+    getSportsNames: (state) =>
+      state.allSports
+        .map((s: SportDTO) => s.strSport)
+        .filter((name: string | null): name is string => !!name),
     getByName: (state) => {
       return (name: string) =>
-        state.sports.find((s) => s.strSport && s.strSport.toLowerCase() === name.toLowerCase())
+        state.allSports.find((s) => s.strSport && s.strSport.toLowerCase() === name.toLowerCase())
     },
   },
 
@@ -32,10 +42,10 @@ export const useLeagueStore = defineStore('league', {
       this.loading = true
       this.error = null
       try {
-        this.sports = await listAllSports()
+        this.allSports = await listAllSports()
       } catch (e) {
-        console.error('Error fetching sports:', e)
-        this.error = 'Error fetching sports'
+        console.error('Error fetching Sports:', e)
+        this.error = 'Error fetching Sports'
       } finally {
         this.loading = false
       }
@@ -45,10 +55,38 @@ export const useLeagueStore = defineStore('league', {
       this.loading = true
       this.error = null
       try {
-        this.leagues = await listAllLeagues()
+        this.allLeagues = await getAllLeagues()
       } catch (e) {
-        console.error('Error fetching leagues:', e)
-        this.error = 'Error fetching leagues'
+        console.error('Error fetching Leagues:', e)
+        this.error = 'Error fetching Leagues'
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async fetchSeasonByLeagueId(id: string) {
+      this.loading = true
+      this.error = null
+      try {
+        const season: SeasonDTO | null = await getAllSeasonsByLeagueId(id)
+        return season
+      } catch (e) {
+        console.error('Error fetching Seasons:', e)
+        this.error = 'Error fetching Seasons'
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async fetchLeagueById(id: string) {
+      this.loading = true
+      this.error = null
+      try {
+        const league = await getLeagueById(id)
+        return league
+      } catch (e) {
+        console.error('Error fetching League by ID:', e)
+        this.error = 'Error fetching League by ID'
       } finally {
         this.loading = false
       }

@@ -1,6 +1,17 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { onBeforeMount } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useLeagueStore } from '@/stores/leagueStore'
+
+const store = useLeagueStore()
+const { allSports, allLeagues } = storeToRefs(store)
+
+onBeforeMount(() => {
+  if (!allSports.value.length) store.fetchAllSports()
+
+  if (!allLeagues.value.length) store.fetchAllLeagues()
+})
 </script>
 
 <template>
@@ -16,7 +27,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
     <nav>
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
+      <!-- <RouterLink to="/details">details</RouterLink> -->
     </nav>
   </header>
 

@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "axios": "^1.11.0",
+    "lodash": "^4.17.21",
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "^4.5.0",
     "vue": "^3.5.18",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@mdi/font": "^7.4.47",
     "@tsconfig/node22": "^22.0.2",
+    "@types/lodash": "^4.17.20",
     "@types/node": "^22.16.5",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/eslint-config-prettier": "^10.2.0",
