@@ -35,26 +35,6 @@ Deployed at: [https://sporty-group-assignment.vercel.app/](https://sporty-group-
 - **Axios** (HTTP requests)
 - **ESLint + Prettier** (code quality and formatting)
 
----
-
-## 📂 Project Structure
-
-src/
-├─ assets/ # Static assets
-├─ components/ # Reusable UI components
-│ ├─ LeagueCard.vue
-│ └─ FiltersBar.vue
-├─ views/ # Page-level components
-│ ├─ HomeView\.vue
-│ └─ LeagueView\.vue
-├─ stores/ # Pinia stores
-│ └─ leagueStore.ts
-├─ services/ # API integration (Axios)
-│ └─ sportsService.ts
-├─ router/ # Vue Router setup
-├─ App.vue
-└─ main.ts
-
 ## 🚀 Getting Started
 
 ### Prerequisites
