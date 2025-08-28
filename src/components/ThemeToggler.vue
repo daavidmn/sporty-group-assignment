@@ -23,7 +23,7 @@ const { theme } = storeToRefs(store)
 const vuetifyTheme = useTheme()
 
 function toggleManual() {
-  theme.value = theme.value === 'dark' ? 'light' : 'dark'
+  theme.value = vuetifyTheme.name.value === 'dark' ? 'light' : 'dark'
 
   vuetifyTheme.toggle()
 }

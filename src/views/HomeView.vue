@@ -3,7 +3,7 @@ import BasicFetcher from '@/components/BasicFetcher.vue'
 </script>
 
 <template>
-  <main>
+  <div>
     <BasicFetcher />
-  </main>
+  </div>
 </template>

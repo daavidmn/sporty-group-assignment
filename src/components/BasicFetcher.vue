@@ -1,40 +1,34 @@
 <template>
-  <div class="basic-fetcher">
-    <v-form class="inputs-container">
-      <v-text-field
-        v-model="leagueValue"
-        label="Search League"
-        variant="solo-inverted"
-        prepend-inner-icon="mdi-magnify"
-        @update:modelValue="(value) => changeSearch(value)"
-      />
-      <v-select
-        v-model="sportValue"
-        clearable
-        label="Sport type"
-        :items="getSportsNames"
-        prepend-inner-icon="mdi-magnify"
-        @update:model-value="(e) => changeSearch(e)"
-      />
-    </v-form>
-    <div class="results-container">
-      <v-card
-        v-for="league in filteredLeagues"
-        :key="league.idLeague"
-        :title="league.strLeague ?? ''"
-        :subtitle="league.strSport ?? ''"
-        text="strLeagueAlternate"
-        variant="tonal"
-        :href="`/league/${league.idLeague}`"
-      >
-        <v-img
-          height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-          cover
-        ></v-img>
-      </v-card>
-    </div>
-    {{ sportValue }}
+  <v-form class="inputs-container">
+    <v-text-field
+      v-model="leagueValue"
+      label="Search League"
+      variant="solo-inverted"
+      prepend-inner-icon="mdi-magnify"
+      @update:modelValue="(value) => changeSearch(value)"
+    />
+    <v-select
+      v-model="sportValue"
+      clearable
+      label="Sport type"
+      :items="getSportsNames"
+      prepend-inner-icon="mdi-magnify"
+      @update:model-value="(e) => changeSearch(e)"
+    />
+  </v-form>
+  <div class="results-container">
+    <v-card
+      v-for="league in filteredLeagues"
+      :key="league.idLeague"
+      :title="league.strLeague ?? ''"
+      :subtitle="league.strSport ?? ''"
+      text="strLeagueAlternate"
+      variant="tonal"
+      height="250px"
+      :href="`/league/${league.idLeague}`"
+    >
+      <v-img height="200px" src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" cover></v-img>
+    </v-card>
   </div>
 </template>
 
@@ -98,5 +92,8 @@ const fetchBadge = async (leagueId: string) => {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+  @media (min-width: 1024px) {
+    overflow-y: scroll;
+  }
 }
 </style>
