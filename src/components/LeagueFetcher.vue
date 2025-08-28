@@ -19,7 +19,7 @@
       prepend-inner-icon="mdi-basketball"
     />
   </v-form>
-  <div class="results-container" v-if="allLeagues.length">
+  <div class="results-container" v-if="filteredLeagues.length">
     <v-card
       v-for="league in filteredLeagues"
       :key="league.idLeague"

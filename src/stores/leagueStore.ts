@@ -94,8 +94,10 @@ export const useLeagueStore = defineStore('league', {
       this.loading = true
       this.error = null
       try {
-        const league = await getLeagueById(id)
-        return league
+        let league = this.leaguesDetails.find((l) => id === l.idLeague && l.strLeagueAlternate)
+
+        if (league) return league
+        return await getLeagueById(id)
       } catch (e) {
         console.error('Error fetching League by ID:', e)
         this.error = 'Error fetching League by ID'
