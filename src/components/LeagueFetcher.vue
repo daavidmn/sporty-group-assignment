@@ -4,7 +4,7 @@
       class="flex-lg-fill w-50"
       v-model="leagueValue"
       bg-color="background"
-      label="Search League"
+      label="Search League By Name"
       variant="filled"
       prepend-inner-icon="mdi-shield-search"
     />
