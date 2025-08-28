@@ -9,7 +9,7 @@
       <v-card
         append-icon="mdi-open-in-new"
         class="mx-auto"
-        href="https://github.com/daavidmn/sporty-group-assignment"
+        :href="gitUrl"
         max-width="344"
         prepend-icon="mdi-github"
         rel="noopener"
@@ -22,6 +22,8 @@
 </template>
 <script setup lang="ts">
 import logo from '../assets/leagues_fetcher_logo.png'
+
+const gitUrl = import.meta.env.VITE_TSDB_GITHUB
 </script>
 <style lang="scss" scoped>
 .logo-container {

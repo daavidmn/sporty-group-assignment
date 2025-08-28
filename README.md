@@ -5,6 +5,8 @@ It consumes [TheSportsDB API](https://www.thesportsdb.com/free_sports_api) to li
 
 Deployed at: [https://sporty-group-assignment.vercel.app/](https://sporty-group-assignment.vercel.app/)
 
+Made by: <a href="https://github.com/daavidmn" target="blank">David Macedo do Nascimento</a>
+
 ---
 
 ## 📌 Features
