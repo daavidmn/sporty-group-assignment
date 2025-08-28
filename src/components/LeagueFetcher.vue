@@ -1,18 +1,23 @@
 <template>
   <v-form class="inputs-container">
     <v-text-field
+      class="flex-lg-fill"
       v-model="leagueValue"
+      bg-color="background"
       label="Search League"
-      variant="solo-inverted"
-      prepend-inner-icon="mdi-magnify"
+      variant="filled"
+      prepend-inner-icon="mdi-shield-search"
       @update:modelValue="(value) => changeSearch(value)"
     />
     <v-select
+      class="flex-fill"
       v-model="sportValue"
       clearable
-      label="Sport type"
+      bg-color="background"
+      label="Select Sport"
+      variant="filled"
       :items="getSportsNames"
-      prepend-inner-icon="mdi-magnify"
+      prepend-inner-icon="mdi-basketball"
       @update:model-value="(e) => changeSearch(e)"
     />
   </v-form>
@@ -26,8 +31,8 @@
       variant="tonal"
       height="250px"
       :href="`/league/${league.idLeague}`"
+      class="bg-background"
     >
-      <v-img height="200px" src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" cover></v-img>
     </v-card>
   </div>
 </template>
@@ -77,7 +82,7 @@ const fetchBadge = async (leagueId: string) => {
 </script>
 
 <style scoped>
-.basic-fetcher {
+.league-fetcher {
   width: 100%;
 }
 

@@ -27,7 +27,7 @@ export async function getAllSeasonsByLeagueId(id: string) {
   const { data } = await tsdb.get<AllSeasonsResponse>(`/${API_KEY}/search_all_seasons.php`, {
     params: { badge: 1, id },
   })
-  return data.seasons ? data.seasons[0] : null
+  return data.seasons ? data.seasons[data.seasons.length - 1] : null
 }
 
 export async function listLeaguesInACountry(country: string | null, sport: string | null) {

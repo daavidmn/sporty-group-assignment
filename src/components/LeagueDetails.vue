@@ -1,27 +1,27 @@
 <template>
-  <div class="about">
+  <div class="details">
     <v-container class="d-flex flex-row align-center justify-space-between">
       <div>
         <h1>{{ leagueDetails?.strLeague }}</h1>
         <h2>{{ leagueDetails?.strLeagueAlternate }}</h2>
-        <div>{{ leagueDetails?.strSport }}</div>
-        <div>{{ leagueDetails?.strCountry }}</div>
+        <h3>{{ leagueDetails?.strSport }}</h3>
+        <h3>{{ leagueDetails?.strCountry }}</h3>
       </div>
-      <div>
-        <v-img
-          v-if="seasonBadgeUrl"
-          :src="seasonBadgeUrl"
-          alt="Season Badge"
-          width="200"
-          height="200"
-          class="my-4"
-          contain
-        />
-      </div>
+
+      <v-img
+        v-if="seasonBadgeUrl"
+        :src="seasonBadgeUrl"
+        alt="Season Badge"
+        width="200"
+        height="200"
+        class="my-4"
+        contain
+      />
     </v-container>
 
-    <h3>Description:</h3>
-    <div>{{ leagueDetails?.strDescriptionEN }}</div>
+    <div class="description-container">
+      <p class="text-justify">{{ leagueDetails?.strDescriptionEN }}</p>
+    </div>
   </div>
 </template>
 
@@ -59,13 +59,29 @@ onMounted(() => {
 })
 </script>
 
-<style>
+<style scoped lang="scss">
+.details {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: 0 0 1rem 0;
+}
 @media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  .details {
+    overflow: hidden;
+  }
+}
+
+.description-container {
+  height: auto;
+  width: 100%;
+  padding: 1rem;
+  overflow-y: visible;
+
+  @media (min-width: 1024px) {
+    overflow-y: scroll;
   }
 }
 </style>

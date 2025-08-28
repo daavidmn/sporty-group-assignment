@@ -8,15 +8,22 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-    },
-    {
-      path: '/league/:id',
-      name: 'league',
-      props: true,
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/LeagueView.vue'),
+      meta: { breadcrumb: 'Home' },
+      children: [
+        {
+          path: '',
+          name: 'league-fetcher',
+          component: () => import('../components/LeagueFetcher.vue'),
+          meta: { breadcrumb: 'Home' },
+        },
+        {
+          path: 'league/:id',
+          name: 'league',
+          props: true,
+          component: () => import('../components/LeagueDetails.vue'),
+          meta: { breadcrumb: 'League Details' },
+        },
+      ],
     },
   ],
 })

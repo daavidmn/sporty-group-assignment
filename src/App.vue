@@ -1,29 +1,15 @@
 <template>
   <v-theme-provider :theme="theme.name.value">
     <header class="bg-backgroundAlt">
+      <RouterLink to="/" title="Home">
+        <h1 class="text-background text-uppercase font-weight-black">Leagues Fetcher</h1>
+      </RouterLink>
+
       <ThemeToggler />
     </header>
-    <main class="bg-background">
-      <div class="main-container">
-        <div class="logo-container">
-          <v-img alt="Leagues Fetcher" :aspect-ratio="1" :src="logo" width="450" />
-          <h3>Find your leagues data here!</h3>
-        </div>
 
-        <nav>
-          <v-card
-            append-icon="mdi-open-in-new"
-            class="mx-auto"
-            href="https://github.com/daavidmn/sporty-group-assignment"
-            max-width="344"
-            prepend-icon="mdi-github"
-            rel="noopener"
-            target="_blank"
-            title="GitHub Repository"
-            variant="text"
-          />
-        </nav>
-      </div>
+    <main class="bg-background">
+      <LogoBanner />
 
       <RouterView class="router-view bg-backgroundAlt" />
     </main>
@@ -36,8 +22,9 @@ import { onBeforeMount } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useLeagueStore } from '@/stores/leagueStore'
 import ThemeToggler from './components/ThemeToggler.vue'
-import logo from './assets/leagues_fetcher_logo.png'
+
 import { useTheme } from 'vuetify'
+import LogoBanner from './components/LogoBanner.vue'
 
 const theme = useTheme()
 
@@ -58,7 +45,7 @@ header {
   height: 60px;
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   padding: 0.5rem 2rem;
   z-index: 10;
@@ -68,15 +55,6 @@ header {
   line-height: 1.5;
   max-height: 100vh;
   min-width: 50%;
-
-  .logo-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem 0;
-    gap: 10px;
-  }
 }
 
 .logo {
@@ -159,12 +137,7 @@ main {
   display: flex;
   flex-direction: column;
   overflow: visible;
-  background: var(--color-background-alt);
-  color: var(--color-text-alt);
-}
-
-@media (min-width: 1024px) {
-  .router-view {
+  @media (min-width: 1024px) {
     overflow: hidden;
   }
 }
