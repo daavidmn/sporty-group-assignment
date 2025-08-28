@@ -1,6 +1,6 @@
 <template>
   <div class="details">
-    <v-container class="d-flex flex-row align-center justify-space-between">
+    <v-container class="d-flex flex-row align-center justify-space-between pa-0">
       <div>
         <h1>{{ leagueDetails?.strLeague }}</h1>
         <h2>{{ leagueDetails?.strLeagueAlternate }}</h2>
@@ -77,7 +77,7 @@ onMounted(() => {
 .description-container {
   height: auto;
   width: 100%;
-  padding: 1rem;
+  padding: 1rem 0;
   overflow-y: visible;
 
   @media (min-width: 1024px) {

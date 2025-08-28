@@ -1,7 +1,7 @@
 <template>
   <v-form class="inputs-container">
     <v-text-field
-      class="flex-lg-fill"
+      class="flex-lg-fill w-50"
       v-model="leagueValue"
       bg-color="background"
       label="Search League"
@@ -10,7 +10,7 @@
       @update:modelValue="(value) => changeSearch(value)"
     />
     <v-select
-      class="flex-fill"
+      class="flex-fill w-50"
       v-model="sportValue"
       clearable
       bg-color="background"
@@ -81,7 +81,7 @@ const fetchBadge = async (leagueId: string) => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .league-fetcher {
   width: 100%;
 }
@@ -97,8 +97,14 @@ const fetchBadge = async (leagueId: string) => {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+
   @media (min-width: 1024px) {
     overflow-y: scroll;
+
+    scrollbar-width: none; /* Firefox */
+    ::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Edge */
+    }
   }
 }
 </style>
