@@ -19,6 +19,23 @@ const vuetify = createVuetify({
   icons: {
     defaultSet: 'mdi', // This is already the default value - only for display purposes
   },
+  theme: {
+    defaultTheme: 'system', // 'light' | 'dark' | 'system'
+    themes: {
+      dark: {
+        colors: {
+          background: '#181818',
+          backgroundAlt: '#e41827',
+        },
+      },
+      light: {
+        colors: {
+          background: '#e41827',
+          backgroundAlt: '#ffffff',
+        },
+      },
+    },
+  },
 })
 
 const pinia = createPinia()
