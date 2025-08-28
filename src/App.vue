@@ -2,7 +2,7 @@
   <v-theme-provider :theme="theme.name.value">
     <header class="bg-backgroundAlt">
       <RouterLink to="/" title="Home">
-        <h1 class="text-background text-uppercase font-weight-black">Leagues Fetcher</h1>
+        <h1 class="text-bannerFont text-uppercase font-weight-black">Leagues Fetcher</h1>
       </RouterLink>
 
       <ThemeToggler />

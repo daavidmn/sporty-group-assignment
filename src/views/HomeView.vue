@@ -3,13 +3,13 @@
     <v-breadcrumbs :items="breadcrumbs" class="breadcrumbs">
       <template v-slot:item="{ item }">
         <router-link
-          class="text-background font-weight-medium"
-          v-if="item.title != route.meta.breadcrumb"
+          class="text-background font-weight-regular"
+          v-if="item.title != route.meta.breadcrumb && item.title != 'Not Found'"
           :to="item.to || ''"
         >
           {{ item.title }}
         </router-link>
-        <span class="font-weight-medium" v-else>{{ item.title }}</span>
+        <span class="font-weight-bold" v-else>{{ item.title }}</span>
       </template>
     </v-breadcrumbs>
     <router-view v-slot="{ Component }">

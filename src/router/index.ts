@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import NotFound404 from '@/components/NotFound404.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +23,12 @@ const router = createRouter({
           props: true,
           component: () => import('../components/LeagueDetails.vue'),
           meta: { breadcrumb: 'League Details' },
+        },
+        {
+          path: '/:pathMatch(.*)*',
+          name: 'not-found',
+          component: NotFound404,
+          meta: { breadcrumb: 'Not Found' },
         },
       ],
     },

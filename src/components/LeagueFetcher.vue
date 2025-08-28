@@ -7,7 +7,6 @@
       label="Search League"
       variant="filled"
       prepend-inner-icon="mdi-shield-search"
-      @update:modelValue="(value) => changeSearch(value)"
     />
     <v-select
       class="flex-fill w-50"
@@ -18,41 +17,50 @@
       variant="filled"
       :items="getSportsNames"
       prepend-inner-icon="mdi-basketball"
-      @update:model-value="(e) => changeSearch(e)"
     />
   </v-form>
-  <div class="results-container">
+  <div class="results-container" v-if="allLeagues.length">
     <v-card
       v-for="league in filteredLeagues"
       :key="league.idLeague"
-      :title="league.strLeague ?? ''"
-      :subtitle="league.strSport ?? ''"
-      text="strLeagueAlternate"
+      :title="league.strLeague ?? '-'"
+      :subtitle="league.strSport ?? '-'"
+      :text="league.strLeagueAlternate ?? '-'"
       variant="tonal"
       height="250px"
       :href="`/league/${league.idLeague}`"
       class="bg-background"
+      v-intersect="
+        (isIntersecting: boolean, entries: IntersectionObserverEntry[]) =>
+          onIntersect(isIntersecting, entries, league)
+      "
     >
+      <v-img color="surface-variant" height="900" :src="league.strPoster ?? ''" cover> </v-img>
     </v-card>
+  </div>
+  <div v-else class="pa-10">
+    <h2 class="text-center text-background">
+      <v-icon icon="mdi-emoticon-sad-outline" size="x-small"></v-icon> No results found.
+    </h2>
   </div>
 </template>
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useLeagueStore } from '@/stores/leagueStore'
-import { debounce } from 'lodash'
 import { computed } from 'vue'
+import type { LeagueDTO } from '@/api/thesportsdb/types/leagues.api'
+
+const store = useLeagueStore()
+const { allLeagues, leaguesDetails, getSportsNames } = storeToRefs(store)
 
 const sportValue = defineModel<string>('sportValue')
 const leagueValue = defineModel<string>('leagueValue')
 
-const store = useLeagueStore()
-const { allLeagues, getSportsNames } = storeToRefs(store)
-
 const filteredLeagues = computed(() => {
-  let leagues = allLeagues.value
+  let leagues: LeagueDTO[] = leaguesDetails.value
 
-  if (sportValue) {
+  if (sportValue.value) {
     leagues = leagues.filter(
       (league) =>
         league.strSport &&
@@ -60,7 +68,7 @@ const filteredLeagues = computed(() => {
     )
   }
 
-  if (leagueValue) {
+  if (leagueValue.value) {
     leagues = leagues.filter(
       (league) =>
         league.strLeague &&
@@ -71,13 +79,20 @@ const filteredLeagues = computed(() => {
   return leagues
 })
 
-const changeSearch = debounce((value: string) => {
-  //
-}, 300)
-
-const fetchBadge = async (leagueId: string) => {
-  const season = await store.fetchSeasonByLeagueId(leagueId)
-  return season?.strBadge ?? ''
+function onIntersect(
+  isIntersecting: boolean | undefined,
+  entries: IntersectionObserverEntry[],
+  league: LeagueDTO,
+) {
+  if (isIntersecting) {
+    if (!league.strLeagueAlternate) {
+      store.fetchLeagueById(league.idLeague).then((result) => {
+        if (result?.idLeague) {
+          store.setLeaguesDetailsByLeague(result)
+        }
+      })
+    }
+  }
 }
 </script>
 

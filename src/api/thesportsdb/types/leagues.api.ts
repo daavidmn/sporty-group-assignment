@@ -56,6 +56,7 @@ export interface AllLeaguesDTO {
   idLeague: string
   strLeague: string | null
   strSport: string | null
+  strLeagueAlternate: string | null
 }
 
 export interface AllLeaguesResponse {

@@ -1,7 +1,6 @@
-// src/stores/leagueStore.ts
 import { defineStore } from 'pinia'
 import type { SportDTO } from '@/api/thesportsdb/types/sports.api'
-import type { AllLeaguesDTO } from '@/api/thesportsdb/types/leagues.api'
+import type { AllLeaguesDTO, LeagueDTO } from '@/api/thesportsdb/types/leagues.api'
 import {
   getAllLeagues,
   getAllSeasonsByLeagueId,
@@ -13,6 +12,7 @@ import type { SeasonDTO } from '@/api/thesportsdb/types/seasons.api'
 export interface LeagueState {
   allSports: SportDTO[]
   allLeagues: AllLeaguesDTO[]
+  leaguesDetails: LeagueDTO[]
   loading: boolean
   error: string | null
 }
@@ -21,6 +21,7 @@ export const useLeagueStore = defineStore('league', {
   state: (): LeagueState => ({
     allSports: [],
     allLeagues: [],
+    leaguesDetails: [],
     loading: false,
     error: null,
   }),
@@ -38,6 +39,15 @@ export const useLeagueStore = defineStore('league', {
   },
 
   actions: {
+    setLeaguesDetailsByLeague(league: LeagueDTO) {
+      const index = this.leaguesDetails.findIndex((l) => l.idLeague === league.idLeague)
+      if (index !== -1) {
+        this.leaguesDetails[index] = league
+        return
+      }
+
+      this.leaguesDetails.push(league)
+    },
     async fetchAllSports() {
       this.loading = true
       this.error = null
@@ -56,6 +66,8 @@ export const useLeagueStore = defineStore('league', {
       this.error = null
       try {
         this.allLeagues = await getAllLeagues()
+
+        this.leaguesDetails = (this.allLeagues as LeagueDTO[]).map((league) => ({ ...league }))
       } catch (e) {
         console.error('Error fetching Leagues:', e)
         this.error = 'Error fetching Leagues'

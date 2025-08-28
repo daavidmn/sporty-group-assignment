@@ -1,9 +1,10 @@
 <template>
-  <div class="details">
+  <div class="details" v-if="leagueDetails">
     <v-container class="d-flex flex-row align-center justify-space-between pa-0">
       <div>
         <h1>{{ leagueDetails?.strLeague }}</h1>
-        <h2>{{ leagueDetails?.strLeagueAlternate }}</h2>
+        <h3>{{ leagueDetails?.strLeagueAlternate }}</h3>
+        <div>-</div>
         <h3>{{ leagueDetails?.strSport }}</h3>
         <h3>{{ leagueDetails?.strCountry }}</h3>
       </div>
@@ -19,14 +20,37 @@
       />
     </v-container>
 
-    <div class="description-container">
+    <div class="description-container pr-3">
       <p class="text-justify">{{ leagueDetails?.strDescriptionEN }}</p>
     </div>
+  </div>
+
+  <div class="details" v-else>
+    <v-container class="pa-0">
+      <v-row class="mb-10">
+        <v-col>
+          <v-skeleton-loader
+            class="mx-auto"
+            type="subtitle, subtitle, subtitle, paragraph"
+          ></v-skeleton-loader>
+        </v-col>
+        <v-col>
+          <v-skeleton-loader class="mx-auto" type="image"></v-skeleton-loader>
+        </v-col>
+      </v-row>
+      <div class="description-container pr-3">
+        <v-skeleton-loader
+          class="mx-auto"
+          type="paragraph, paragraph, paragraph, paragraph, paragraph"
+        ></v-skeleton-loader>
+      </div>
+    </v-container>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { LeagueDTO } from '@/api/thesportsdb/types/leagues.api'
+import router from '@/router'
 import { useLeagueStore } from '@/stores/leagueStore'
 import { ref, onMounted } from 'vue'
 
@@ -34,14 +58,18 @@ const props = defineProps({
   id: String,
 })
 
-let leagueDetails = ref<LeagueDTO | null>(null)
-let seasonBadgeUrl = ref<string>('')
+const leagueDetails = ref<LeagueDTO | null>(null)
+const seasonBadgeUrl = ref<string>('')
 
 const store = useLeagueStore()
 
 function fetchLeagueDetails(id: string) {
   store.fetchLeagueById(id).then((result) => {
-    leagueDetails.value = result ?? null
+    if (result) {
+      leagueDetails.value = result ?? null
+    } else {
+      router.push({ name: 'not-found' })
+    }
   })
 }
 
