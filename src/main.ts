@@ -27,6 +27,7 @@ const vuetify = createVuetify({
           background: '#181818',
           backgroundAlt: '#636363ff',
           bannerFont: '#ffffff',
+          backgroungGray: '#707070ff',
         },
       },
       light: {
@@ -34,6 +35,7 @@ const vuetify = createVuetify({
           background: '#e41827',
           backgroundAlt: '#ffffff',
           bannerFont: '#e41827',
+          backgroungGray: '#eeeeeeff',
         },
       },
     },

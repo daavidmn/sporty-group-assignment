@@ -1,28 +1,50 @@
 <template>
   <div class="details" v-if="leagueDetails">
     <v-container class="d-flex flex-row align-center justify-space-between pa-0">
-      <div>
-        <h1>{{ leagueDetails?.strLeague }}</h1>
-        <h3>{{ leagueDetails?.strLeagueAlternate }}</h3>
-        <div>-</div>
-        <h3>{{ leagueDetails?.strSport }}</h3>
-        <h3>{{ leagueDetails?.strCountry }}</h3>
-      </div>
+      <article class="w-50">
+        <header>
+          <h1 class="text-h4">{{ leagueDetails?.strLeague }}</h1>
+          <p>
+            <strong>{{ leagueDetails?.strLeagueAlternate }}</strong>
+          </p>
+        </header>
 
-      <v-img
-        v-if="seasonBadgeUrl"
-        :src="seasonBadgeUrl"
-        alt="Season Badge"
-        width="200"
+        <v-divider :thickness="2" width="150" class="border-opacity-20 mb-4"></v-divider>
+
+        <section>
+          <p>
+            <span aria-hidden="true"><v-icon icon="mdi-whistle"></v-icon></span>
+            {{ leagueDetails?.strSport }}
+          </p>
+          <p>
+            <span aria-hidden="true"><v-icon icon="mdi-earth"></v-icon></span>
+            {{ leagueDetails?.strCountry }}
+          </p>
+        </section>
+      </article>
+
+      <v-card
+        variant="outlined"
+        border="primary thin"
+        class="ma-5 bg-backgroungGray rounded-xl d-flex flex-fill"
+        min-width="200"
         height="200"
-        class="my-4"
-        contain
-      />
+      >
+        <v-img
+          v-if="seasonBadgeUrl"
+          :src="seasonBadgeUrl"
+          alt="Season Badge"
+          class="ma-4"
+          contain
+        />
+      </v-card>
     </v-container>
 
-    <div class="description-container pr-3">
+    <v-divider :thickness="2" class="w-50 my-4 border-opacity-20"></v-divider>
+
+    <article class="description-container pr-3">
       <p class="text-justify">{{ leagueDetails?.strDescriptionEN }}</p>
-    </div>
+    </article>
   </div>
 
   <div class="details" v-else>
